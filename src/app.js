@@ -48,7 +48,11 @@ const cellInput = document.querySelector(".cell-input");
 let clickedCell = null;
 
 scrollContainer.addEventListener('dblclick', (e) => {
-  const cell = grid.getCell(e.layerX, e.layerY);
+  const rect = e.target.getBoundingClientRect(),
+      offsetX = e.clientX - rect.left,
+      offsetY = e.clientY - rect.top;
+
+  const cell = grid.getCell(offsetX, offsetY);
 
   if (!cell || !cell.editable) {
     return;

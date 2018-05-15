@@ -1,8 +1,8 @@
 import {Container} from "pixi.js";
 import Cell from "./Cell";
 
-export const columns = 100;
-export const rows = 35;
+export const columns = 200;
+export const rows = 30;
 export const cellWidth = 102;
 export const cellHeight = 20;
 
@@ -52,6 +52,8 @@ export class Grid {
   getCell(posX, posY) {
     const clickedColumn = Math.floor(posX / cellWidth);
     const clickedRow = Math.floor(posY / cellHeight);
+
+    // console.log(posX, posY);
 
     // We found a cell
     if(this.cells[clickedRow] && this.cells[clickedRow][clickedColumn]) {

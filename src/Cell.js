@@ -31,6 +31,8 @@ export default class Cell {
 
     this.container.addChild(this.rectangle);
 
+    this.rectangle.cacheAsBitmap = true;
+
     this.setText(value);
 
     this.container.addChild(this.text);
