@@ -1,8 +1,8 @@
 import {Container} from "pixi.js";
 import Cell from "./Cell";
 
-export const columns = 200;
-export const rows = 30;
+export const columns = 21;
+export const rows = 75;
 export const cellWidth = 102;
 export const cellHeight = 20;
 
