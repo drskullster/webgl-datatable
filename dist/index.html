@@ -6,6 +6,9 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Datatable with canvas test</title>
+  <script>
+    window.startTime = new Date();
+  </script>
   <style>
     * {
       padding: 0;
@@ -17,6 +20,7 @@
       background-color: #222;
       color: white;
       font-family: sans-serif;
+      overflow: hidden;
     }
 
     .intro {
@@ -24,17 +28,17 @@
     }
 
     .app-container {
-      height: 600px;
+      height: 100vh;
       position: relative;
-      width: 800px;
+      width: 100vw;
     }
 
     .scroll-wrapper {
       position: absolute;
-      top: 20px;
+      top: 22px;
       right: 0;
       bottom: 0;
-      left: 102px;
+      left: 290px;
     }
 
     .scroll-container {
@@ -55,7 +59,7 @@
       background-color: #fff;
       color: #222;
       font-size: 12px;
-      height: 20px;
+      height: 22px;
       position: absolute;
       text-align: center;
       width: 102px;
@@ -64,15 +68,29 @@
     .cell-input::-ms-clear {
       display: none;
     }
+
+    .loader {
+      color: white;
+      padding: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .profiler {
+      background-color: black;
+      color: limegreen;
+      font-size: 12px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 3px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-<div class="intro">
-  <h1>WebGL Datatable</h1>
-  <p>
-    Made with Pixi.js.
-  </p>
-</div>
 <div class="app-container">
   <div class="canvas-container"></div>
   <div class="scroll-wrapper">
@@ -80,6 +98,8 @@
     <input type="text" class="cell-input">
   </div>
 </div>
+<div class="loader">Loading...</div>
+<div class="profiler"></div>
 <script src="bundle.js"></script>
 </body>
 </html>

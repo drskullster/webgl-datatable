@@ -1,4 +1,5 @@
-import {Container, Graphics, Text} from "pixi.js";
+import {Container, Graphics, Sprite, Text} from "pixi.js";
+import {BitmapText} from "pixi.js/lib/extras/index";
 
 const textStyle = {
   fontFamily: "Arial",
@@ -8,34 +9,37 @@ const textStyle = {
   resolution: 1
 };
 
-export default class Cell {
-  constructor(value, isHeader) {
-    this.value = value;
-
-    this.container = new Container();
+export default class Cell extends Container {
+  constructor({isHeader, isOdd, value, width, height, textAlign}) {
+    super();
 
     this.editable = !isHeader;
+    this.cellWidth = width;
+    this.cellHeight = height;
+    this.textAlign = textAlign;
 
-    this.rectangle = new Graphics();
+    const border = new PIXI.Sprite(PIXI.Texture.WHITE);
+    border.width = width;
+    border.height = height;
+    this.addChild(border);
 
-    if(isHeader) {
-      this.rectangle.lineStyle(1, 0xCCCCCC, 1);
-      this.rectangle.beginFill(0xEEEEEE);
+    const bg = new Sprite(PIXI.Texture.WHITE);
+    bg.width = width - 2;
+    bg.height = height - 2;
+    bg.position.set(1, 1);
+    bg.y = 1;
+
+    if(isOdd) {
+      bg.tint = 0xf1f1f1;
     } else {
-      this.rectangle.lineStyle(1, 0xCCCCCC, 1);
-      this.rectangle.beginFill(0xFAFAFA);
+      bg.tint = 0xfafafa;
     }
 
-    this.rectangle.drawRect(0, 0, 102, 20);
-    this.rectangle.endFill();
+    this.addChild(bg);
 
-    this.container.addChild(this.rectangle);
-
-    this.rectangle.cacheAsBitmap = true;
-
-    this.setText(value);
-
-    this.container.addChild(this.text);
+    if(value) {
+      this.setText(value);
+    }
   }
 
   getValue() {
@@ -45,17 +49,18 @@ export default class Cell {
   setText(value) {
     this.value = value;
 
-    if(!this.text) {
-      this.text = new Text(value, textStyle);
+    if(!this.textField) {
+      this.textField = new BitmapText(value, { font: '13px Arial', align: 'center' });
+      this.addChild(this.textField);
     } else {
-      this.text.text = value;
+      this.textField.text = value;
     }
 
-    this.text.position.x = this.rectangle.width / 2 - this.text.width / 2;
-    this.text.position.y = this.rectangle.height / 2 - this.text.height / 2;
-  }
+    if(this.textAlign === "center") {
+      this.textField.position.x = this.cellWidth / 2 - this.textField.width / 2;
+    }
 
-  getContainer() {
-    return this.container;
+    // FIXME fix line-height in Bitmap Text generator
+    this.textField.position.y = this.cellHeight / 2 - this.textField.height / 2 - 2;
   }
 }
