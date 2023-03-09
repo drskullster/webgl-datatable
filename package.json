@@ -4,7 +4,7 @@
     "build": "webpack-cli --env.production"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -14,5 +14,8 @@
   },
   "dependencies": {
     "pixi.js": "^4.7.3"
+  },
+  "overrides": {
+    "minimist": "^2"
   }
 }
